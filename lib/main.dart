@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/services/news_service.dart';
+
+import 'package:provider/provider.dart';
 
 import 'package:news_app/theme/theme.dart';
 import 'package:news_app/pages/tabs_page.dart';
@@ -10,10 +13,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: tema,
-      home: TabsPage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => NewsService()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: tema,
+        home: TabsPage(),
+      ),
     );
   }
 }
