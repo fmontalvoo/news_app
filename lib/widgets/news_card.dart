@@ -1,35 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/models/article_model.dart';
 
-import 'package:provider/provider.dart';
+class NewsCard extends StatelessWidget {
+  final Article articulo;
 
-import 'package:news_app/models/news_model.dart';
-import 'package:news_app/services/news_service.dart';
-
-class ListNews extends StatelessWidget {
+  const NewsCard({Key key, this.articulo}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final newsService = Provider.of<NewsService>(context);
-
-    return FutureBuilder(
-      future: newsService.getTopHeadLines(),
-      builder: (context, AsyncSnapshot<News> snapshot) {
-        if (snapshot.hasData) {
-          final articulos = snapshot.data.articles;
-          return ListView.builder(
-            physics: BouncingScrollPhysics(),
-            itemCount: articulos.length,
-            itemBuilder: (context, index) {
-              return _newsCard(articulos[index]);
-            },
-          );
-        }
-        return Center(child: CircularProgressIndicator());
-      },
-    );
-  }
-
-  Widget _newsCard(Article articulo) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
